@@ -1,0 +1,72 @@
+@import '../../style/variables.scss';
+
+.searching-form {
+    padding: 25px;
+    margin-top: 30px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+    position: relative;
+    background-color: #fff;
+
+    &__title {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    &__search {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+
+        &-bar {
+            width: 250px;
+            height: 38px;
+
+            background: #FFFFFF;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+
+            padding-left: 10px;
+
+            outline: none;
+            border: none;
+
+            &:focus {
+                box-shadow: 0px 0px 10px #9F0013
+            }
+        }
+    }
+
+    &__found {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-message {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 21px;
+
+            color: #03710E;
+        }
+    }
+
+    &__spinner {
+        width: 50px;
+        height: 50px;
+        margin-top: 25px;
+    }
+
+    &__error {
+        margin-top: 25px;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 21px;
+
+        color: #9F0013;
+    }
+}

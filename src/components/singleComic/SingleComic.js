@@ -12,15 +12,15 @@ const SingleComic = () => {
     const {loading, error, getComic} = useMarvelService();
 
     useEffect(() => {
-        updateChar();
+        updateComic(comicId);
     }, [comicId]);
 
-    const updateChar = () => {
-        getComic(comicId)
-            .then(onCharLoaded);
+    const updateComic = (id) => {
+        getComic(id)
+            .then(onComicLoaded);
     }
 
-    const onCharLoaded = (comic) => {
+    const onComicLoaded = (comic) => {
         setComic(comic);
     }
 
