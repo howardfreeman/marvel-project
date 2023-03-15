@@ -7,8 +7,11 @@ import Spinner from '../spinner/Spinner';
 const MainPage = lazy(() => import('../pages/MainPage'));
 const ComicsPage = lazy(() => import('../pages/ComicsPage'));
 const SingleComicPage = lazy(() => import('../pages/SingleComicPage'));
+const CharacterPage = lazy(() => import('../pages/CharacterPage'));
 
 const App = () => {
+    const home = 'marvel-project';
+
     return (
         <Router>
             <div className="app">
@@ -16,9 +19,10 @@ const App = () => {
                 <main>
                     <Suspense fallback={<Spinner/>} >
                         <Routes>
-                            <Route path='marvel-project/' element={<MainPage/>} />
-                            <Route path='marvel-project/comics/' element={<ComicsPage/>} />
-                            <Route path='marvel-project/comics/:comicId' element={<SingleComicPage/>} />
+                            <Route path={home + '/'} element={<MainPage/>} />
+                            <Route path={home + '/comics/'} element={<ComicsPage/>} />
+                            <Route path={home + '/comics/:comicId'} element={<SingleComicPage/>} />
+                            <Route path={home + '/characters/:charId'} element={<CharacterPage/>} />
                             <Route path='*' element={<Page404/>} />
                         </Routes>
                     </Suspense>
