@@ -1,8 +1,11 @@
 .single-character {
     margin-top: 50px;
-    display: grid;
-    grid-template-columns: 293px 550px;
-    gap: 50px;
+    
+    &__grid {
+        display: grid;
+        grid-template-columns: 293px 550px;
+        gap: 50px;
+    }
 
     &__thumbnail {
         width: 100%;

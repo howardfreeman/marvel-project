@@ -7,12 +7,31 @@ import useMarvelService from '../../services/MarvelService';
 
 import './charList.scss';
 
+const setContent = (process, Component, newCharListLoading) => {
+    switch(process) {
+        case 'waiting':
+            return <Spinner/>;
+            break;
+        case 'loading':
+            return newCharListLoading ? <Component/> : <Spinner/>;
+            break;
+        case 'success':
+            return <Component/>;
+            break;
+        case 'failure':
+            return <ErrorMessage/>;
+            break;
+        default:
+            throw new Error('Unexpected process state');
+    }
+}
+
 const CharList = (props) => {
     const [charList, setCharList] = useState([]);
     const [newCharListLoading, setNewCharListLoading] = useState(false);
     const [offset, setOffset] = useState(200);
     const [charEnded, setCharEnded] = useState(false);
-    const {loading, error, getAllCharacters} = useMarvelService();
+    const {process, setProcess, getAllCharacters} = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
@@ -21,7 +40,8 @@ const CharList = (props) => {
     const onRequest = (offset, initial) => {
         initial ? setNewCharListLoading(false) : setNewCharListLoading(true);
         getAllCharacters(offset)
-            .then(onCharListLoaded);
+            .then(onCharListLoaded)
+            .then(() => setProcess('success'));
     }
 
     const onCharListLoaded = (newCharList) => {
@@ -69,16 +89,9 @@ const CharList = (props) => {
         )
     }
 
-    const items = renderItems(charList);
-
-    const spinner = loading && !newCharListLoading ? <Spinner/> : null;
-    const errorMessage = error ? <ErrorMessage/> : null;
-
     return (
         <div className="char__list">
-            {spinner}
-            {errorMessage}
-            {items}
+            {setContent(process, () => renderItems(charList), newCharListLoading)}
             <button className="button button__main button__long"
                 disabled={newCharListLoading}
                 onClick={() => onRequest(offset)}
