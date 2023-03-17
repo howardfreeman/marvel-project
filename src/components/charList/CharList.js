@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -11,16 +11,12 @@ const setContent = (process, Component, newCharListLoading) => {
     switch(process) {
         case 'waiting':
             return <Spinner/>;
-            break;
         case 'loading':
             return newCharListLoading ? <Component/> : <Spinner/>;
-            break;
         case 'success':
             return <Component/>;
-            break;
         case 'failure':
             return <ErrorMessage/>;
-            break;
         default:
             throw new Error('Unexpected process state');
     }
@@ -35,6 +31,7 @@ const CharList = (props) => {
 
     useEffect(() => {
         onRequest(offset, true);
+        // eslint-disable-next-line
     }, []);
 
     const onRequest = (offset, initial) => {
@@ -89,9 +86,14 @@ const CharList = (props) => {
         )
     }
 
+    const content = useMemo(() => {
+        return setContent(process, () => renderItems(charList), newCharListLoading);
+        // eslint-disable-next-line
+    }, [process]);
+
     return (
         <div className="char__list">
-            {setContent(process, () => renderItems(charList), newCharListLoading)}
+            {content}
             <button className="button button__main button__long"
                 disabled={newCharListLoading}
                 onClick={() => onRequest(offset)}

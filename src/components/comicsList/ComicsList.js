@@ -10,16 +10,12 @@ const setContent = (process, Component, newComicsListLoading) => {
     switch(process) {
         case 'waiting':
             return <Spinner/>;
-            break;
         case 'loading':
             return newComicsListLoading ? <Component/> : <Spinner/>;
-            break;
         case 'success':
             return <Component/>;
-            break;
         case 'failure':
             return <ErrorMessage/>;
-            break;
         default:
             throw new Error('Unexpected process state');
     }
@@ -34,6 +30,7 @@ const ComicsList = () => {
 
     useEffect(() => {
         onRequest(offset, true);
+        // eslint-disable-next-line
     }, []);
 
     const onRequest = (offset, initial) => {
