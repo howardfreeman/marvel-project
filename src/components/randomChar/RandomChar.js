@@ -11,6 +11,7 @@ const RandomChar = () => {
 
     useEffect(() => {
         updateCharacter();
+        // eslint-disable-next-line
     }, []);
 
     const onCharLoaded = (character) => {
