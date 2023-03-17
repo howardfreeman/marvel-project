@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Spinner from '../spinner/Spinner';
 import useMarvelService from '../../services/MarvelService';
 
 import './searchingForm.scss';
@@ -11,12 +10,13 @@ const SearchingForm = () => {
     const [char, setChar] = useState({});
     const [notFound, setNotFound] = useState(false);
     const [found, setFound] = useState(false);
-    const {loading, error, getCharacterByName} = useMarvelService();
+    const {process, setProcess, getCharacterByName} = useMarvelService();
 
     const findChar = (name) => {
 
         getCharacterByName(name)
             .then(onCharLoaded)
+            .then(() => setProcess('success'));
     }
 
     const onCharLoaded = (character) => {
@@ -53,7 +53,10 @@ const SearchingForm = () => {
                         placeholder="Enter name"
                         className="searching-form__search-bar"
                     />
-                    <button type="submit" className="button button__main">
+                    <button 
+                        type="submit" 
+                        className="button button__main"
+                        disabled={process === 'loading'}>
                             <div className="inner">find</div>
                     </button>
                 </div>

@@ -2,10 +2,12 @@
 
 .single-comic {
     margin-top: 50px;
-    display: grid;
-    grid-template-columns: 293px 550px auto;
-    column-gap: 50px;
-    align-items: start;
+    &__grid {
+        display: grid;
+        grid-template-columns: 293px 550px auto;
+        column-gap: 50px;
+        align-items: start;
+    }
     &__img {
         width: 293px;
         height: 450px;
